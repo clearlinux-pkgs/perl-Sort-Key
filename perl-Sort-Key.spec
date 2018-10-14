@@ -4,16 +4,16 @@
 #
 Name     : perl-Sort-Key
 Version  : 1.33
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-1.33.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-1.33.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libsort-key-perl/libsort-key-perl_1.33-2.debian.tar.xz
 Summary  : 'the fastest way to sort anything in Perl'
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
-Requires: perl-Sort-Key-lib
-Requires: perl-Sort-Key-license
-Requires: perl-Sort-Key-man
+Requires: perl-Sort-Key-lib = %{version}-%{release}
+Requires: perl-Sort-Key-license = %{version}-%{release}
+BuildRequires : buildreq-cpan
 
 %description
 Sort-Key
@@ -22,10 +22,20 @@ sort arrays by one or multiple calculated keys.
 INSTALLATION
 To install this module type the following:
 
+%package dev
+Summary: dev components for the perl-Sort-Key package.
+Group: Development
+Requires: perl-Sort-Key-lib = %{version}-%{release}
+Provides: perl-Sort-Key-devel = %{version}-%{release}
+
+%description dev
+dev components for the perl-Sort-Key package.
+
+
 %package lib
 Summary: lib components for the perl-Sort-Key package.
 Group: Libraries
-Requires: perl-Sort-Key-license
+Requires: perl-Sort-Key-license = %{version}-%{release}
 
 %description lib
 lib components for the perl-Sort-Key package.
@@ -39,19 +49,11 @@ Group: Default
 license components for the perl-Sort-Key package.
 
 
-%package man
-Summary: man components for the perl-Sort-Key package.
-Group: Default
-
-%description man
-man components for the perl-Sort-Key package.
-
-
 %prep
-tar -xf %{SOURCE1}
-cd ..
 %setup -q -n Sort-Key-1.33
-mkdir -p %{_topdir}/BUILD/Sort-Key-1.33/deblicense/
+cd ..
+%setup -q -T -D -n Sort-Key-1.33 -b 1
+mkdir -p deblicense/
 mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Sort-Key-1.33/deblicense/
 
 %build
@@ -76,12 +78,12 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/perl-Sort-Key
-cp deblicense/copyright %{buildroot}/usr/share/doc/perl-Sort-Key/deblicense_copyright
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-Sort-Key
+cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Sort-Key/deblicense_copyright
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -90,22 +92,14 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key.pm
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Maker.pm
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Multi.pm
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Natural.pm
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Register.pm
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Types.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Maker.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Multi.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Natural.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Register.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Types.pm
 
-%files lib
-%defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/auto/Sort/Key/Key.so
-
-%files license
-%defattr(-,root,root,-)
-/usr/share/doc/perl-Sort-Key/deblicense_copyright
-
-%files man
+%files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Sort::Key.3
 /usr/share/man/man3/Sort::Key::Maker.3
@@ -113,3 +107,11 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 /usr/share/man/man3/Sort::Key::Natural.3
 /usr/share/man/man3/Sort::Key::Register.3
 /usr/share/man/man3/Sort::Key::Types.3
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/Sort/Key/Key.so
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Sort-Key/deblicense_copyright

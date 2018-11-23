@@ -4,7 +4,7 @@
 #
 Name     : perl-Sort-Key
 Version  : 1.33
-Release  : 2
+Release  : 3
 URL      : https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-1.33.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-1.33.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libsort-key-perl/libsort-key-perl_1.33-2.debian.tar.xz

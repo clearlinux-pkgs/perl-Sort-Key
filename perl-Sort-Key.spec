@@ -92,12 +92,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key.pm
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Maker.pm
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Multi.pm
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Natural.pm
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Register.pm
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Sort/Key/Types.pm
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/Sort/Key.pm
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/Sort/Key/Maker.pm
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/Sort/Key/Multi.pm
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/Sort/Key/Natural.pm
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/Sort/Key/Register.pm
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/Sort/Key/Types.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -110,7 +110,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/Sort/Key/Key.so
+/usr/lib/perl5/vendor_perl/5.28.0/x86_64-linux-thread-multi/auto/Sort/Key/Key.so
 
 %files license
 %defattr(0644,root,root,0755)

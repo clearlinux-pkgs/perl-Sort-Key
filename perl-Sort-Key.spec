@@ -4,15 +4,15 @@
 #
 Name     : perl-Sort-Key
 Version  : 1.33
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-1.33.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-1.33.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libsort-key-perl/libsort-key-perl_1.33-2.debian.tar.xz
 Summary  : 'the fastest way to sort anything in Perl'
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
-Requires: perl-Sort-Key-lib = %{version}-%{release}
 Requires: perl-Sort-Key-license = %{version}-%{release}
+Requires: perl-Sort-Key-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -25,20 +25,11 @@ To install this module type the following:
 %package dev
 Summary: dev components for the perl-Sort-Key package.
 Group: Development
-Requires: perl-Sort-Key-lib = %{version}-%{release}
 Provides: perl-Sort-Key-devel = %{version}-%{release}
+Requires: perl-Sort-Key = %{version}-%{release}
 
 %description dev
 dev components for the perl-Sort-Key package.
-
-
-%package lib
-Summary: lib components for the perl-Sort-Key package.
-Group: Libraries
-Requires: perl-Sort-Key-license = %{version}-%{release}
-
-%description lib
-lib components for the perl-Sort-Key package.
 
 
 %package license
@@ -49,18 +40,28 @@ Group: Default
 license components for the perl-Sort-Key package.
 
 
+%package perl
+Summary: perl components for the perl-Sort-Key package.
+Group: Default
+Requires: perl-Sort-Key = %{version}-%{release}
+
+%description perl
+perl components for the perl-Sort-Key package.
+
+
 %prep
 %setup -q -n Sort-Key-1.33
-cd ..
-%setup -q -T -D -n Sort-Key-1.33 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libsort-key-perl_1.33-2.debian.tar.xz
+cd %{_builddir}/Sort-Key-1.33
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Sort-Key-1.33/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Sort-Key-1.33/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -70,7 +71,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -79,7 +80,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Sort-Key
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Sort-Key/deblicense_copyright
+cp %{_builddir}/Sort-Key-1.33/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Sort-Key/aef8c7fbeb4e134f256d3211e536e2869b03e55a
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -92,12 +93,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Sort/Key.pm
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Sort/Key/Maker.pm
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Sort/Key/Multi.pm
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Sort/Key/Natural.pm
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Sort/Key/Register.pm
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Sort/Key/Types.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -108,10 +103,16 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 /usr/share/man/man3/Sort::Key::Register.3
 /usr/share/man/man3/Sort::Key::Types.3
 
-%files lib
-%defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/Sort/Key/Key.so
-
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Sort-Key/deblicense_copyright
+/usr/share/package-licenses/perl-Sort-Key/aef8c7fbeb4e134f256d3211e536e2869b03e55a
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Sort/Key.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Sort/Key/Maker.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Sort/Key/Multi.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Sort/Key/Natural.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Sort/Key/Register.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Sort/Key/Types.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/Sort/Key/Key.so

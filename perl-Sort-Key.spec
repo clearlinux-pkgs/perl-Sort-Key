@@ -4,7 +4,7 @@
 #
 Name     : perl-Sort-Key
 Version  : 1.33
-Release  : 13
+Release  : 14
 URL      : https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-1.33.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-1.33.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libsort-key-perl/libsort-key-perl_1.33-2.debian.tar.xz
@@ -109,10 +109,10 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/Sort/Key.pm
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/Sort/Key/Maker.pm
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/Sort/Key/Multi.pm
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/Sort/Key/Natural.pm
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/Sort/Key/Register.pm
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/Sort/Key/Types.pm
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/auto/Sort/Key/Key.so
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/Sort/Key.pm
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/Sort/Key/Maker.pm
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/Sort/Key/Multi.pm
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/Sort/Key/Natural.pm
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/Sort/Key/Register.pm
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/Sort/Key/Types.pm
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/auto/Sort/Key/Key.so
